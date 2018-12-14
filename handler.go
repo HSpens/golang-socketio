@@ -90,7 +90,8 @@ func (m *methods) processIncomingMessage(c *Channel, msg *protocol.Message) {
 	case protocol.MessageTypeEmit:
 		f, ok := m.findMethod(msg.Method)
 		if !ok {
-			return
+			f, ok = m.findMethod("*")
+			if !ok { return }
 		}
 
 		if !f.ArgsPresent {
